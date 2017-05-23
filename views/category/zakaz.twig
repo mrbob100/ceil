@@ -1,0 +1,109 @@
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+
+                <div class="left-sidebar">
+
+                    <ul class="catalog category-products">
+                        <div>{{ akkordeon|raw }}</div>
+                    </ul>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-9 padding-right okno_mine">
+
+                  <div class="features_items"><!--features_items-->
+                    {%  block content %}
+
+                    <div class="mainmenu pull-left">
+                        <ul class="nav navbar-nav collapse navbar-collapse falcon">
+                            <li><a href="{{ path('@web/site/logout') }}" class="active">Выход</a></li>
+
+
+                            <li><a href="{{ path('@web/plot/index') }}">Ввод изображения чертежа</a></li>
+                            <li><a href="{{ path('@web/plotext/index') }}">Ввод данных чертежа</a></li>
+                            {% if diller=='Админ' %}
+                                <li><a href="{{ path('@web/admin') }}"><i class="fa fa-user"></i> Панель администратора</a></li>
+                            {% endif %}
+
+
+                        </ul>
+                    </div>
+
+                </div>
+
+                {% set i=0 %}
+
+                <h4>{{ item.name }} </h4>
+                <label>количество:</label>
+                <p><input  type="text" value="1"  id="qty" /></p>
+
+
+
+
+
+                {% for item in arch %}
+
+                    <div class="col-sm-6 akes">
+                        <div class="{{ cycle(["even", "odd"], loop.index) }}">
+
+
+
+
+                            <div class="akes">
+                                <img src="{{ path('../images/home/'~ item.img ) }}" width="100px;" height="100px;" alt="" />
+                                <br/>
+
+
+
+                                <p class="text-justify"> {{  item.name|raw }} </p>
+                                <p class="text-justify">количество  {{  item.quantity|raw }} </p>
+                                <p class="text-justify">площадь потолка  {{  item.square|raw }} </p>
+                                <p class="text-justify">цена {{  item.price|raw }} руб. </p>
+                                <p class="text-justify">стоимость {{  item.sum|raw }} руб. </p>
+
+                                <a href="{{path('#',{'id': item.id  })}}" data-id="{{ item.id  }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </div>
+
+                    {% set i=i+1 %}
+                    {% if (i%4)==0 %}
+                        <div class="clearfix"></div>
+                    {% endif %}
+
+                {% endfor %}
+
+
+
+
+                {{ use('/yii/widgets') }}
+                {{link_pager_widget({
+                    'pagination': pages
+                }) }}
+
+
+
+
+                {%  if i==0 %}
+                    <h2>Здесь товаров пока нет...</h2>
+                {% endif %}
+                {% endblock %}
+            </div><!--features_items  -->
+
+        </div>
+    </div>
+    </div>
+</section>

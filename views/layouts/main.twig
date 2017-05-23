@@ -1,0 +1,90 @@
+{{ register_asset_bundle('app/assets/AppAsset') }}
+{{ register_asset_bundle('app/assets/ltAppAsset') }}
+{{  this.beginPage() }}
+<!doctype html>
+<html lang="{{app.language}}">
+<head>
+    <meta charset="{{app.charset}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{ html.csrfMetaTags() | raw }}
+    <title>{{ html.encode(this.title) }}</title>
+
+    {{ this.head() }}
+
+    <link rel="shortcut icon" href="{{ path('images/ico/favicon.ico') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ path('images/ico/apple-touch-icon-144-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ path('images/ico/apple-touch-icon-114-precomposed.png') }}" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ path('images/ico/apple-touch-icon-72-precomposed.png') }}">
+    <link rel="apple-touch-icon-precomposed" href="{{ path('images/ico/apple-touch-icon-57-precomposed.png') }}">
+
+</head>
+<body>
+<section id="header">
+    <div class="container">
+        <div class="row ">
+
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu "> <a href="{{ path('@web/index.php') }}"><img src="{{ url('@web/images/home/logo.png') }}" height="50" alt="картинка"/></a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu">sashazvere@gmail.com<br/><i class="glyphicon glyphicon-euro"> </i><a href="#" onclick="">&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; пополнить</a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu"><a href="#" onclick="getCart()"><i class="fa fa-shopping-cart"></i>показать корзину</a><br/>корзина</div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu"><a href="#" onclick=""><i class="glyphicon glyphicon-bell"></i></a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu">Укр</div>
+            <li class="col-lg-2 col-md-2 col-sm-2 col-xs-2 menu menu_last"><a href="{{ path('@web/site/logout') }}"><i class="fa fa-user "></i> выход</a></li>
+
+        </div>
+    </div>
+</section>
+
+
+
+{{ this.beginBody() }}
+
+
+            {{ content | raw }}
+
+{{ this.endBody() }}
+
+<footer class="footer">
+    <div class="container">
+
+
+    </div>
+</footer>
+
+
+
+<!--?php
+\yii\bootstrap\Modal::begin([
+    'header' => '<h2>Корзина</h2>',
+'id' => 'cart',
+'size' => 'modal-lg',
+'footer' => '<button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+<button type="button" class="btn btn-success">Оформить заказ</button>
+<button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>'
+]);
+
+\yii\bootstrap\Modal::end();
+? -->
+<div class="modal fade" id="cart" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Корзина</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Продолжить покупки</button>
+                <a href="{{ path('@web/cart/view') }}" class="btn btn-success">Оформить заказ</a>
+                <button type="button" class="btn btn-danger" onclick="clearCart()">Очистить корзину</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+</body>
+
+</html>
+{{ this.endPage() }}

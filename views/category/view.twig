@@ -1,0 +1,79 @@
+
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-3">
+
+                <div class="left-sidebar">
+
+                    <ul class="catalog category-products">
+                        <div>{{ akkordeon|raw }}</div>
+                    </ul>
+
+
+
+                </div>
+
+            </div>
+
+            <div class="col-sm-9 padding-right okno_mine">
+
+                  <div class="features_items"><!--features_items-->
+                    {%  block content %}
+
+                        {% set i=0 %}
+                        <label><h4>количество:</h4></label>
+                        <p><input  type="text" value="1"  id="qty" /></p>
+                        {% set pr=3 %}
+                        {% for event in arch %}
+                    <div class="col-sm-6 akes">
+                        <div class="{{ cycle(["even", "odd"], loop.index) }}">
+
+
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+
+                                             <div class="productinfo text-center">
+
+
+
+                                                <img src="{{ path('../images/home/'~ event.img ) }}" alt="" />
+                                                <h2>цена{{ event.price }} руб</h2>
+                                                <p> материал {{ event.ItemUID }}</p>
+                                                <a href="{{path('product/view', {'id': event.id } )}}" class="btn btn-default">{{ event.name|raw }}</a>
+
+                                                <a href="{{path('#')}}" data-id="{{ event.id  }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+
+
+                                             </div>
+                                     </div>
+
+
+                                </div>
+                        </div>
+                     </div>
+                            {% set i=i+1 %}
+                            {% if (i%4)==0 %}
+                                <div class="clearfix"></div>
+                            {% endif %}
+
+                        {% endfor %}
+                        {{ use('/yii/widgets') }}
+                        {{link_pager_widget({
+                            'pagination': pages
+                        }) }}
+
+
+
+
+                        {%  if i==0 %}
+                            <h2>Здесь товаров пока нет...</h2>
+                        {% endif %}
+                    {% endblock %}
+                </div><!--features_items  -->
+
+            </div>
+        </div>
+    </div>
+</section>
